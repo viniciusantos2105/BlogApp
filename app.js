@@ -6,7 +6,7 @@
     const app = express()
     const admin = require("./routes/admin")
     const path = require("path")
-    //const mongoose = require("mongoose");
+    const mongoose = require("mongoose");
 
 //Configurações
     //Body Parser
@@ -16,7 +16,15 @@
         app.engine('handlebars', handle.engine);
         app.set('view engine', 'handlebars');
     //Mongoose
-    
+        mongoose.Promise = global.Promise;
+        mongoose.connect("mongodb://127.0.0.1:27017/blogapp?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.1", {   
+            useNewUrlParser:true,
+            useUnifiedTopology: true
+        }).then(() => {
+            console.log("MongoDB Conectado...")
+        }).catch((err) => {
+            console.log("Houve um erro ao se conectar ao mongoDB: "+ err)
+        })
     //
         //app.use(express.static(path.join(__dirname + "/public")))
 //Rotas
