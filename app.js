@@ -1,8 +1,10 @@
 //Carregando módulos
     const express = require('express');
-    const handlerbars = require('express-handlebars');
+    const handlebars = require('express-handlebars')
+    var handle = handlebars.create({defaultLayout: 'main'});
     const bodyParser = require("body-parser");
     const app = express()
+    const admin = require("./routes/admin")
     //const mongoose = require("mongoose");
 
 //Configurações
@@ -10,12 +12,11 @@
         app.use(bodyParser.urlencoded({extended: true}))
         app.use(bodyParser.json())
     //Handlebars
-        app.engine('handlebars', handlerbars({defaultLayout: 'main'}))
-        app.set('view engine', 'handlebars')
+        app.engine('handlebars', handle.engine);
+        app.set('view engine', 'handlebars');
     //Mongoose
 //Rotas
-
-
+    app.use('/admin', admin)
 //Outros
 const Port = 8081
 app.listen(Port, () => {
