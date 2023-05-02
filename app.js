@@ -25,8 +25,12 @@
         }).catch((err) => {
             console.log("Houve um erro ao se conectar ao mongoDB: "+ err)
         })
-    //
+    // Public
         //app.use(express.static(path.join(__dirname + "/public")))
+        app.use((req, res, next) =>{
+            console.log("Eu sou um middlewere")
+            next()
+        })
 //Rotas
     app.get('/', (req, res) => {
         res.send('Rota principal')
